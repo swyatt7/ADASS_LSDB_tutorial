@@ -28,7 +28,7 @@ python -m pip install -e .
 
 #other python setup dependencies
 ipython kernel install --user --name=lsldb_demo
-python -m pip install ray #needed for this demo
+python -m pip install ray ipywidgets
 ```
 
 ## Available datasets on epyc
@@ -94,7 +94,7 @@ lsdb python api examples. We will:
 ### Set up a ray client
 ```python
 import ray
-from enable_dask_on_ray, disable_dask_on_ray
+from ray.util.dask import enable_dask_on_ray, disable_dask_on_ray
 client = ray.init(
     num_cpus = 4
 )
@@ -107,6 +107,7 @@ import lsdb
 import numpy as np
 gaia = lsdb.read_hipscat("/data3/epyc/projects3/ivoa_demo/gaia/catalog")
 ztf = lsdb.read_hipscat("/data3/epyc/data3/hipscat/catalogs/ztf_axs/ztf_dr14")
+#sources load takes a minute, since it creates a healpix alignment on load
 ztf_sources = lsdb.read_hipscat("/data3/epyc/data3/hipscat/catalogs/ztf_axs/ztf_source")
 ```
 
@@ -134,7 +135,7 @@ join = xmatch.join(
 ).compute()
 ```
 
-### Cull our join for objects with a lot of data
+### Cull our join for objects with comprehensive lightcurve data
 ```python
 join.query(
     "nobs_g_ztf_dr14 > 20 and nobs_r_ztf_dr14 > 20 and nobs_i_ztf_dr14 > 20"
