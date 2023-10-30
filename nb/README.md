@@ -15,7 +15,7 @@ cd hipscat_clones
 git clone https://github.com/astronomy-commons/hipscat
 cd hipscat
 git checkout origin
-git checkout sean/tutorial-demo
+git checkout ADASS-Tutorial
 python -m pip install -e .
 cd ../
 
@@ -23,11 +23,19 @@ cd ../
 git clone https://github.com/astronomy-commons/lsdb
 cd lsdb
 git checkout origin
-git checkout sean/tutorial-demo
+git checkout ADASS-Tutorial
 python -m pip install -e .
+cd ../
+
+git clone https://github.com/astronomy-commons/hipscat-import
+cd hipscat-import
+git checkout origin
+git checkout ADASS-Tutorial
+python -m pip install -e .
+cd ../
 
 #other python setup dependencies
-ipython kernel install --user --name=lsldb_demo
+ipython kernel install --user --name=lsdb_demo
 python -m pip install ray ipywidgets
 ```
 
